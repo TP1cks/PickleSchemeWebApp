@@ -1,12 +1,12 @@
 import Editor from "@monaco-editor/react";
-import {Box, Button} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import React, {useCallback, useEffect, useState} from "react";
 import {EditorViewOutput} from "./EditorViewOutput";
 import {PickleScheme} from "./interpreter/pickle-scheme";
 
 
 export interface InterpreterViewEditorProps {
-
+  reset: boolean;
 }
 
 export function InterpreterEditorView(props: InterpreterViewEditorProps) {
@@ -22,10 +22,14 @@ export function InterpreterEditorView(props: InterpreterViewEditorProps) {
   }, []);
 
   useEffect(() => {
+    if (props.reset) {
+      setEditorInput(undefined);
+      setEditorViewOutputValue("");
+    }
     if (pickleScheme === undefined) {
       setPickleScheme(new PickleScheme(appendEditorViewOutputValue));
     }
-  }, [appendEditorViewOutputValue, pickleScheme]);
+  }, [appendEditorViewOutputValue, pickleScheme, props]);
 
   const onRunClicked = () => {
     setEditorViewOutputValue("");
@@ -49,7 +53,7 @@ export function InterpreterEditorView(props: InterpreterViewEditorProps) {
       <Box display={"flex"}>
         <Editor
           theme={"vs-dark"}
-          height={"55vh"}
+          height={"50vh"}
           options={{fontSize: 14}}
           value={editorInput}
           onChange={(value) => setEditorInput(value)}

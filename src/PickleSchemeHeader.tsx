@@ -2,7 +2,10 @@ import {Box, Button, ButtonGroup, FormControl, InputLabel, MenuItem, Select, Typ
 import {InterpreterViewType} from "./InterpreterView";
 
 export interface PickleSchemeHeaderProps {
-
+  onInfoClicked: () => void;
+  onResetClicked: () => void;
+  onSnippetsClicked: () => void;
+  onInterpreterViewTypeSelected: (type: InterpreterViewType) => void;
 }
 
 export function PickleSchemeHeader(props: PickleSchemeHeaderProps) {
@@ -14,15 +17,17 @@ export function PickleSchemeHeader(props: PickleSchemeHeaderProps) {
         label="Interpreter View Mode"
         labelId={"interpreter-view-mode-label"}
         defaultValue={InterpreterViewType.EDITOR}
+        // @ts-ignore
+        onChange={event => props.onInterpreterViewTypeSelected(event.target.value)}
       >
         <MenuItem value={InterpreterViewType.EDITOR}>Editor</MenuItem>
         <MenuItem value={InterpreterViewType.REPL}>Read Evaluate Print Loop (REPL)</MenuItem>
       </Select>
     </FormControl>
     <ButtonGroup variant={"contained"} color={"secondary"}>
-      <Button>Snippets</Button>
-      <Button>Reset</Button>
-      <Button>Info</Button>
+      <Button onClick={props.onSnippetsClicked}>Snippets</Button>
+      <Button onClick={props.onResetClicked}>Reset</Button>
+      <Button onClick={props.onInfoClicked}>Info</Button>
     </ButtonGroup>
   </Box>
 }

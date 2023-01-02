@@ -9,6 +9,7 @@ export enum InterpreterViewType {
 
 export interface PickleSchemeInterpreterViewProps {
   viewType: InterpreterViewType;
+  reset: boolean;
 }
 
 export function InterpreterView(props: PickleSchemeInterpreterViewProps) {
@@ -16,7 +17,7 @@ export function InterpreterView(props: PickleSchemeInterpreterViewProps) {
     <Box sx={{padding: "10px"}}>
       {
         props.viewType === InterpreterViewType.EDITOR
-          ? <InterpreterEditorView/>
+          ? <InterpreterEditorView reset={props.reset}/>
           : <InterpreterReplView/>
       }
     </Box>
