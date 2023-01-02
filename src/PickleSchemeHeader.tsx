@@ -36,8 +36,8 @@ export function PickleSchemeHeader(props: PickleSchemeHeaderProps) {
           label="Interpreter View Mode"
           labelId={"interpreter-view-mode-label"}
           defaultValue={InterpreterViewType.EDITOR}
-          // @ts-ignore
           onChange={(event) =>
+            // @ts-ignore
             props.onInterpreterViewTypeSelected(event.target.value)
           }
         >
