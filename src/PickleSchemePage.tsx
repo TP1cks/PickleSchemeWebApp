@@ -1,16 +1,15 @@
-import {PickleSchemeHeader} from './PickleSchemeHeader';
-import {Divider, Drawer} from "@mui/material";
-import React, {useEffect, useState} from 'react';
-import {InterpreterView, InterpreterViewType} from "./InterpreterView";
-import {PickleSchemeInfo} from "./PickleSchemeInfo";
-import {PickleSchemeSnippets} from "./PickleSchemeSnippets";
+import { PickleSchemeHeader } from "./PickleSchemeHeader";
+import { Divider, Drawer } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { InterpreterView, InterpreterViewType } from "./InterpreterView";
+import { PickleSchemeInfo } from "./PickleSchemeInfo";
+import { PickleSchemeSnippets } from "./PickleSchemeSnippets";
 
-export interface PickleSchemePageProps {
-
-}
+export interface PickleSchemePageProps {}
 
 export function PickleSchemePage(props: PickleSchemePageProps) {
-  const [interpreterViewType, setInterpreterViewType] = useState<InterpreterViewType>(InterpreterViewType.EDITOR);
+  const [interpreterViewType, setInterpreterViewType] =
+    useState<InterpreterViewType>(InterpreterViewType.EDITOR);
   const [infoDrawerOpen, setInfoDrawerOpen] = useState<boolean>(false);
   const [snippetsDrawerOpen, setSnippetsDrawerOpen] = useState<boolean>(false);
   const [reset, setReset] = useState<boolean>(false);
@@ -27,7 +26,7 @@ export function PickleSchemePage(props: PickleSchemePageProps) {
 
   const onSnippetsClicked = () => {
     setSnippetsDrawerOpen(true);
-  }
+  };
 
   const onResetClicked = () => {
     setReset(true);
@@ -35,7 +34,7 @@ export function PickleSchemePage(props: PickleSchemePageProps) {
 
   const onInterpreterViewTypeSelect = (type: InterpreterViewType) => {
     setInterpreterViewType(type);
-  }
+  };
 
   return (
     <React.Fragment>
@@ -45,8 +44,8 @@ export function PickleSchemePage(props: PickleSchemePageProps) {
         onResetClicked={onResetClicked}
         onInterpreterViewTypeSelected={onInterpreterViewTypeSelect}
       />
-      <Divider/>
-      <InterpreterView viewType={interpreterViewType} reset={reset}/>
+      <Divider />
+      <InterpreterView viewType={interpreterViewType} reset={reset} />
       <Drawer
         open={infoDrawerOpen}
         anchor={"right"}
@@ -59,11 +58,10 @@ export function PickleSchemePage(props: PickleSchemePageProps) {
         open={snippetsDrawerOpen}
         anchor={"bottom"}
         onClose={() => setSnippetsDrawerOpen(false)}
-        PaperProps={{sx: {maxHeight: "60vh"}}}
+        PaperProps={{ sx: { maxHeight: "60vh" } }}
       >
-        <PickleSchemeSnippets/>
+        <PickleSchemeSnippets />
       </Drawer>
     </React.Fragment>
-
-  )
+  );
 }

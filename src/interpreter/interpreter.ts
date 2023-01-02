@@ -158,7 +158,7 @@ export class Interpreter {
             ? proc.call(args)
             : proc.call(this, args)
       ),
-      print: new PrimitiveProcedure((arg: any) => this.outputCallback(arg))
+      print: new PrimitiveProcedure((arg: any) => this.outputCallback(arg)),
     };
     const env = new Environment();
     Object.entries(baseEnvironmentEntries).forEach(

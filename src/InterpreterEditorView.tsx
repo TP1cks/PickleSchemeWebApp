@@ -1,23 +1,27 @@
 import Editor from "@monaco-editor/react";
-import {Box, Button, Typography} from "@mui/material";
-import React, {useCallback, useEffect, useState} from "react";
-import {EditorViewOutput} from "./EditorViewOutput";
-import {PickleScheme} from "./interpreter/pickle-scheme";
-
+import { Box, Button, Typography } from "@mui/material";
+import React, { useCallback, useEffect, useState } from "react";
+import { EditorViewOutput } from "./EditorViewOutput";
+import { PickleScheme } from "./interpreter/pickle-scheme";
 
 export interface InterpreterViewEditorProps {
   reset: boolean;
 }
 
 export function InterpreterEditorView(props: InterpreterViewEditorProps) {
-  const [editorViewOutputValue, setEditorViewOutputValue] = useState<string>("");
-  const [pickleScheme, setPickleScheme] = useState<PickleScheme | undefined>(undefined);
+  const [editorViewOutputValue, setEditorViewOutputValue] =
+    useState<string>("");
+  const [pickleScheme, setPickleScheme] = useState<PickleScheme | undefined>(
+    undefined
+  );
   const [editorInput, setEditorInput] = useState<string | undefined>(undefined);
 
   const appendEditorViewOutputValue = useCallback((outputValue: any) => {
     const outputAsString = outputValue.toString();
     setEditorViewOutputValue((prevState) => {
-      return prevState !== "" ? prevState.concat("\n").concat(outputAsString) : outputAsString;
+      return prevState !== ""
+        ? prevState.concat("\n").concat(outputAsString)
+        : outputAsString;
     });
   }, []);
 
@@ -40,13 +44,10 @@ export function InterpreterEditorView(props: InterpreterViewEditorProps) {
           appendEditorViewOutputValue(result);
         }
       } catch (e) {
-       appendEditorViewOutputValue(e);
+        appendEditorViewOutputValue(e);
       }
-
     }
   };
-
-
 
   return (
     <Box display={"flex"} flexDirection={"column"} gap={"10px"}>
@@ -54,14 +55,19 @@ export function InterpreterEditorView(props: InterpreterViewEditorProps) {
         <Editor
           theme={"vs-dark"}
           height={"50vh"}
-          options={{fontSize: 14}}
+          options={{ fontSize: 14 }}
           value={editorInput}
           onChange={(value) => setEditorInput(value)}
         />
-        <Button color={"secondary"} variant={"contained"} onClick={onRunClicked}>Run</Button>
+        <Button
+          color={"secondary"}
+          variant={"contained"}
+          onClick={onRunClicked}
+        >
+          Run
+        </Button>
       </Box>
-      <EditorViewOutput outputValue={editorViewOutputValue}/>
+      <EditorViewOutput outputValue={editorViewOutputValue} />
     </Box>
-
-  )
+  );
 }

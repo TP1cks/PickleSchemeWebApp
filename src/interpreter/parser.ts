@@ -69,7 +69,9 @@ export class Parser {
     while (!argsClosingParen) {
       const argSymbol = this.consumeSymbol();
       if (!argSymbol) {
-        throw Error(`Error parsing Lambda definition expected argument symbol, found: ${this.peekToken()}`);
+        throw Error(
+          `Error parsing Lambda definition expected argument symbol, found: ${this.peekToken()}`
+        );
       }
       args.push(argSymbol.value);
       argsClosingParen = this.consumeRightParen();
@@ -171,7 +173,9 @@ export class Parser {
     this.consumeLeftParen();
     const name = this.consumeSymbol();
     if (!name) {
-      throw Error(`Error parsing Let Binding, expected symbol, found: ${this.peekToken()}`);
+      throw Error(
+        `Error parsing Let Binding, expected symbol, found: ${this.peekToken()}`
+      );
     }
     const value = this.parseExpression();
     this.consumeRightParen();
@@ -194,8 +198,13 @@ export class Parser {
     return this.consumeToken(TokenType.Symbol);
   }
 
-  private consumeToken(tokenType: TokenType, tokenValue?: any): Token | undefined {
-    const expected = tokenValue ? `${tokenType} with value: ${tokenValue}` : `${tokenType}`;
+  private consumeToken(
+    tokenType: TokenType,
+    tokenValue?: any
+  ): Token | undefined {
+    const expected = tokenValue
+      ? `${tokenType} with value: ${tokenValue}`
+      : `${tokenType}`;
     const token = this.peekToken(expected);
     if (tokenValue) {
       return token.tokenType === tokenType && token.value === tokenValue
@@ -235,14 +244,18 @@ export class Parser {
 
   private peekToken(expecting?: string): Token {
     if (this.complete()) {
-      throw expecting ? Error(`Parse error, expected ${expecting}, but reached end of source`) : Error();
+      throw expecting
+        ? Error(`Parse error, expected ${expecting}, but reached end of source`)
+        : Error();
     }
     return this.tokens.at(0) as Token;
   }
 
   private nextToken(expecting?: string): Token {
     if (this.complete()) {
-      throw expecting ? Error(`Parse error, expected ${expecting}, but reached end of source`) : Error();
+      throw expecting
+        ? Error(`Parse error, expected ${expecting}, but reached end of source`)
+        : Error();
     }
     const result = this.tokens.at(0) as Token;
     this.tokens = this.tokens.slice(1);

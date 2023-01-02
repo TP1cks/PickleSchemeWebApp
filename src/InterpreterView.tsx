@@ -1,10 +1,10 @@
-import {Box} from "@mui/material";
-import {InterpreterEditorView} from "./InterpreterEditorView";
-import {InterpreterReplView} from "./InterpreterReplView";
+import { Box } from "@mui/material";
+import { InterpreterEditorView } from "./InterpreterEditorView";
+import { InterpreterReplView } from "./InterpreterReplView";
 
 export enum InterpreterViewType {
   EDITOR,
-  REPL
+  REPL,
 }
 
 export interface PickleSchemeInterpreterViewProps {
@@ -14,12 +14,12 @@ export interface PickleSchemeInterpreterViewProps {
 
 export function InterpreterView(props: PickleSchemeInterpreterViewProps) {
   return (
-    <Box sx={{padding: "10px"}}>
-      {
-        props.viewType === InterpreterViewType.EDITOR
-          ? <InterpreterEditorView reset={props.reset}/>
-          : <InterpreterReplView/>
-      }
+    <Box sx={{ padding: "10px" }}>
+      {props.viewType === InterpreterViewType.EDITOR ? (
+        <InterpreterEditorView reset={props.reset} />
+      ) : (
+        <InterpreterReplView />
+      )}
     </Box>
-  )
+  );
 }

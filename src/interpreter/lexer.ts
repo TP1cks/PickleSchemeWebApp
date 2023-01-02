@@ -1,4 +1,4 @@
-import {Token, TokenType} from "./types";
+import { Token, TokenType } from "./types";
 
 export class Lexer {
   private tokens: Token[];
@@ -44,7 +44,8 @@ export class Lexer {
 
   private consumeParen() {
     this.tokens.push({
-      tokenType: this.next("Paren") === "(" ? TokenType.LeftParen : TokenType.RightParen,
+      tokenType:
+        this.next("Paren") === "(" ? TokenType.LeftParen : TokenType.RightParen,
     });
   }
 
@@ -63,21 +64,26 @@ export class Lexer {
     }
   }
 
-  private consumeSymbol(){
+  private consumeSymbol() {
     let symbol = "";
-    while (!this.complete() && (isLetter(this.peek()) || isSpecialCharacter(this.peek()) || isDigit0To9(this.peek()))) {
+    while (
+      !this.complete() &&
+      (isLetter(this.peek()) ||
+        isSpecialCharacter(this.peek()) ||
+        isDigit0To9(this.peek()))
+    ) {
       symbol = symbol.concat(this.next("letter, special character, or digit"));
     }
-    this.tokens.push({tokenType: TokenType.Symbol, value: symbol});
+    this.tokens.push({ tokenType: TokenType.Symbol, value: symbol });
   }
 
   private consumeString() {
-    this.next("\""); //consume opening '"'
+    this.next('"'); //consume opening '"'
     let stringValue = "";
     while (this.peek() !== '"') {
       stringValue = stringValue.concat(this.next("string literal"));
     }
-    this.next("\""); // consume closing '"'
+    this.next('"'); // consume closing '"'
     this.tokens.push({
       tokenType: TokenType.String,
       value: stringValue,
@@ -86,7 +92,10 @@ export class Lexer {
 
   private consumeNumber() {
     let number = "";
-    while (!this.complete() && (isDigit0To9(this.peek())  || isDot(this.peek()))) {
+    while (
+      !this.complete() &&
+      (isDigit0To9(this.peek()) || isDot(this.peek()))
+    ) {
       number = number.concat(this.next("digit or '.'"));
     }
     const numberValue = Number(number);
@@ -100,14 +109,18 @@ export class Lexer {
 
   private peek(expecting?: string): string {
     if (this.complete()) {
-      throw expecting ? Error(`Unexpected end of source, was expecting: ${expecting}`) : Error();
+      throw expecting
+        ? Error(`Unexpected end of source, was expecting: ${expecting}`)
+        : Error();
     }
     return this.source.charAt(0);
   }
 
   private next(expecting?: string): string {
     if (this.complete()) {
-      throw expecting ? Error(`Unexpected end of source, was expecting: ${expecting}`) : Error();
+      throw expecting
+        ? Error(`Unexpected end of source, was expecting: ${expecting}`)
+        : Error();
     }
     const result = this.source.charAt(0);
     if (result === "\n") {
